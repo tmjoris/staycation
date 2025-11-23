@@ -43,11 +43,9 @@ public class LoginFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         loginsubmit = new javax.swing.JButton();
-        loginid = new javax.swing.JTextField();
         username = new javax.swing.JTextField();
         showpassword = new javax.swing.JPasswordField();
         showpasswordpl = new javax.swing.JCheckBox();
@@ -59,19 +57,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Lucida Calligraphy", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("WELCOME TO SERENA HOTEL");
+        jLabel1.setText("WELCOME TO STAYCATION HOTEL");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(140, -40, 450, 140);
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("LOGIN ID");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(30, 100, 55, 17);
+        jLabel1.setBounds(110, -30, 520, 140);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("USERNAME");
+        jLabel3.setText("EMAIL");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(30, 160, 69, 17);
 
@@ -92,14 +84,6 @@ public class LoginFrame extends javax.swing.JFrame {
         });
         getContentPane().add(loginsubmit);
         loginsubmit.setBounds(350, 320, 110, 30);
-
-        loginid.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginidActionPerformed(evt);
-            }
-        });
-        getContentPane().add(loginid);
-        loginid.setBounds(180, 100, 240, 22);
         getContentPane().add(username);
         username.setBounds(180, 170, 240, 22);
 
@@ -141,19 +125,11 @@ public class LoginFrame extends javax.swing.JFrame {
         });
         getContentPane().add(clear);
         clear.setBounds(220, 320, 90, 24);
-
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Vicodec\\Downloads\\Lake Kivu Serena Hotel is located just 3 km from….jpeg")); // NOI18N
-        jLabel5.setText("jLabel5");
         getContentPane().add(jLabel5);
         jLabel5.setBounds(0, -50, 710, 480);
 
-        pack();
+        setSize(800, 800);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void loginidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginidActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_loginidActionPerformed
 
     private void loginsubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginsubmitActionPerformed
         // TODO add your handling code here:
@@ -214,54 +190,74 @@ public class LoginFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clear;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField loginid;
     private javax.swing.JButton loginsubmit;
     private javax.swing.JPasswordField showpassword;
     private javax.swing.JCheckBox showpasswordpl;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
+    
+    
+    private void openGuestsPage() {
+        JFrame frame = new JFrame("Guests");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(800, 800);
+        frame.setLocationRelativeTo(null);
 
-   private void getlogin() {  /*here we get login */
-    try {
-        Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/staycation", "root", null);
-        PreparedStatement pst = cn.prepareStatement(
-            "SELECT * FROM login WHERE username=? AND login_id=? AND password=?"
-        );
-        pst.setString(1, username.getText().trim());
-        pst.setString(2, loginid.getText().trim());
-        pst.setString(3, String.valueOf(showpassword.getPassword()));
-        ResultSet rs = pst.executeQuery();
-
-        if (rs.next()) {
-            JOptionPane.showMessageDialog(null, "Login successful");
-            new StaycationDB().setVisible(true);  
-            dispose(); // Closes the window
-        } else {
-            JOptionPane.showMessageDialog(null, "Login failed. Access denied");
-            
-        }
-    } catch (SQLException ex) {
-        System.getLogger(LoginFrame.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        frame.setContentPane(new Guests());
+        frame.setVisible(true);
     }
-}
 
-  
-     private void setupShowPassword() {
-    showpasswordpl.addActionListener(e -> {
-        if (showpasswordpl.isSelected()) {
-            showpassword.setEchoChar((char) 0); //this  show characters
-        } else {
-            showpassword.setEchoChar(defaultEchoChar); // restores the original
+    private void getlogin() {
+     try {
+         Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/staycation", "root", "");
+
+         PreparedStatement pst = cn.prepareStatement(
+             "SELECT * FROM users WHERE email=? AND password=?"
+         );
+
+         pst.setString(1, username.getText().trim());
+         pst.setString(2, String.valueOf(showpassword.getPassword()));
+
+         ResultSet rs = pst.executeQuery();
+
+         if (rs.next()) {
+             String type = rs.getString("user_type");
+
+             JOptionPane.showMessageDialog(this, "Login successful!");
+
+             if (type.equalsIgnoreCase("customer")) {
+                 openGuestsPage();  // <---- go to Guests
+             } else {
+                 JOptionPane.showMessageDialog(this,
+                         "User type not allowed: " + type);
+             }
+
+             dispose(); // close login window
+         } else {
+             JOptionPane.showMessageDialog(this, "Login failed. Access denied");
+         }
+
+        } catch (SQLException ex) {
+             ex.printStackTrace();
         }
-    });
-}
+    }
+
+
+
+      private void setupShowPassword() {
+        showpasswordpl.addActionListener(e -> {
+            if (showpasswordpl.isSelected()) {
+                showpassword.setEchoChar((char) 0); //this  show characters
+            } else {
+                showpassword.setEchoChar(defaultEchoChar); // restores the original
+            }
+        });
+    }
 
     private void getclear() {
-     loginid.setText("");
     username.setText("");
     showpassword.setText("");
     showpasswordpl.setSelected(false);
@@ -270,11 +266,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }      
 
 
-     private static class StaycationDB extends javax.swing.JFrame {
-    public StaycationDB() {
-       new StaycationDB().setVisible(true);
-    }
-}}
+ }
 
     
 

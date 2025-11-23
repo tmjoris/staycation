@@ -1,5 +1,6 @@
 package staycation;
 
+import java.awt.BorderLayout;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -40,7 +41,7 @@ public class HotelStaffBooking extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new BorderLayout());
 
         bookingtable.setBackground(new java.awt.Color(204, 204, 204));
         bookingtable.setModel(new javax.swing.table.DefaultTableModel(
@@ -113,7 +114,7 @@ public class HotelStaffBooking extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, -130, 960, 780);
 
-        pack();
+        setSize(800, 800);
     }// </editor-fold>//GEN-END:initComponents
 
     private void checkinbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinbtnActionPerformed

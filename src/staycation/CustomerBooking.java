@@ -1,3 +1,4 @@
+package staycation;
 
 import javax.swing.JOptionPane;
 

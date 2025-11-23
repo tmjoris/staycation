@@ -178,7 +178,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         getContentPane().add(jPanel1);
         jPanel1.setBounds(6, 6, 730, 480);
 
-        pack();
+        setSize(800, 800);
     }// </editor-fold>//GEN-END:initComponents
 
     private void phonenumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phonenumberActionPerformed

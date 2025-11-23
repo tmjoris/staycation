@@ -1,75 +1,52 @@
 package staycation;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 
-public class Guests extends javax.swing.JPanel {
+public class Guests extends JFrame {
+
+    private JLabel jLabel1;
+    private JButton jButton1;
 
     public Guests() {
         initComponents();
+        setSize(800, 800);
+        setLocationRelativeTo(null); 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
     }
 
-    @SuppressWarnings("unchecked")
     private void initComponents() {
-        setLayout(new BorderLayout());
+        jLabel1 = new JLabel("WELCOME TO THE STAYCATION HOTEL");
+        jButton1 = new JButton("Come Book Your Room ->");
 
-       
-        // Guest Menu
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.setBackground(new Color(240, 240, 240));
+        getContentPane().setBackground(Color.BLACK);
 
-        JButton btnCreate = new JButton("Create Account");
-        JButton btnLogin = new JButton("Login");
-        JButton btnCatalog = new JButton("Room Catalog");
-        JButton btnBookings = new JButton("My Bookings");
+        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
-        menuBar.add(btnCreate);
-        menuBar.add(btnLogin);
-        menuBar.add(btnCatalog);
-        menuBar.add(btnBookings);
+        jLabel1.setFont(new Font("Times New Roman", Font.BOLD, 24));
+        jLabel1.setForeground(Color.WHITE);
+        jLabel1.setOpaque(true);
+        jLabel1.setBackground(Color.BLACK);
+        jLabel1.setAlignmentX(CENTER_ALIGNMENT); 
 
-        add(menuBar, BorderLayout.NORTH);
+        jButton1.setAlignmentX(CENTER_ALIGNMENT); 
+        jButton1.addActionListener(evt -> openCustomerBookingPage());
 
+        add(Box.createVerticalGlue());         
+        add(jLabel1);
+        add(Box.createVerticalStrut(20));      
+        add(jButton1);
+        add(Box.createVerticalGlue());         
+    }
 
-        /*Staff Menu
-        JMenu staffMenu = new JMenu("Staff");
-        JMenuItem staffLoginItem = new JMenuItem("Staff Login");
-        staffMenu.add(staffLoginItem);
+    private void openCustomerBookingPage() {
+        new CustomerBooking().setVisible(true);
+        dispose();
+    }
 
-        // Admin Menu
-        JMenu adminMenu = new JMenu("Admin");
-        JMenuItem adminPanelItem = new JMenuItem("Admin Panel");
-        adminMenu.add(adminPanelItem);
-
-        // Add Menus to MenuBar
-        menuBar.add(guestMenu);
-        menuBar.add(staffMenu);
-        menuBar.add(adminMenu);
-
-        add(menuBar, BorderLayout.NORTH);
-        */
-
-        // ===== TOP BANNER =====
-        JPanel banner = new JPanel(new BorderLayout());
-        banner.setBackground(new Color(25, 25, 25));
-        banner.setPreferredSize(new Dimension(900, 150));
-
-        JLabel hotelName = new JLabel("Staycation Hotel", SwingConstants.CENTER);
-        hotelName.setForeground(Color.WHITE);
-        hotelName.setFont(new Font("Serif", Font.BOLD, 40));
-        banner.add(hotelName, BorderLayout.CENTER);
-
-        add(banner, BorderLayout.CENTER);
-
-        // ===== FOOTER =====
-        JPanel footer = new JPanel();
-        footer.setBackground(new Color(30, 30, 30));
-        footer.setPreferredSize(new Dimension(900, 50));
-
-        JLabel copyright = new JLabel("© 2025 Staycation Hotel");
-        copyright.setForeground(Color.WHITE);
-        footer.add(copyright);
-
-        add(footer, BorderLayout.SOUTH);
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(Guests::new);
     }
 }

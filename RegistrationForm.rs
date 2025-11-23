@@ -1,2 +1,0 @@
-staycationproject.RegistrationForm
-staycationproject.RegistrationForm$1
