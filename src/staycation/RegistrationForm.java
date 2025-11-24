@@ -290,12 +290,13 @@ public class RegistrationForm extends javax.swing.JFrame {
 
         // Insert into users table
         PreparedStatement pst1 = cn.prepareStatement(
-            "INSERT INTO users(name, email, phone, user_type) VALUES(?,?,?,?)"
+            "INSERT INTO users(name, email, phone, user_type, password) VALUES(?,?,?,?,?)"
         );
         pst1.setString(1, name.getText().trim());
         pst1.setString(2, email.getText().trim());
         pst1.setString(3, phonenumber.getText().trim());
         pst1.setString(4, (String) usertype.getSelectedItem());
+        pst1.setString(5, passwordreg.getText().trim());
         pst1.executeUpdate();
 
         // Insert into login table

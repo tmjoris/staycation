@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package staycationprojectreplacing.src.staycationproject;
+package staycation;
 
  import java.sql.Connection;
 import java.sql.DriverManager;
@@ -282,7 +282,7 @@ private ResultSet rs;
         getContentPane().add(jPanel1);
         jPanel1.setBounds(10, 10, 827, 0);
 
-        pack();
+        setSize(800, 800);
     }// </editor-fold>//GEN-END:initComponents
 
     private void firstrecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstrecordActionPerformed

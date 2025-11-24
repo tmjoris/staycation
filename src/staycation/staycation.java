@@ -14,16 +14,11 @@ public class staycation {
     public static void main(String[] args) {
 
         SwingUtilities.invokeLater(() -> {
-            JFrame window = new JFrame("Staycation Hotel");
-            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            // Add your landing page JPanel
-            window.setContentPane(new Guests());
-
-            window.pack(); // auto-size to preferred layout
-            window.setSize(1000, 700); // override if you want a custom size
-            window.setLocationRelativeTo(null); // center on screen
-            window.setVisible(true);
+            RegistrationForm regForm = new RegistrationForm();
+            regForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            regForm.setSize(1000, 700);
+            regForm.setLocationRelativeTo(null);
+            regForm.setVisible(true);
         });
 
     }

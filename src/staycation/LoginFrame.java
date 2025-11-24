@@ -200,14 +200,8 @@ public class LoginFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     
     
-    private void openGuestsPage() {
-        JFrame frame = new JFrame("Guests");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 800);
-        frame.setLocationRelativeTo(null);
-
-        frame.setContentPane(new Guests());
-        frame.setVisible(true);
+    private void openGuestsPage(String email) {
+        new Guests(email).setVisible(true);
     }
 
     private void getlogin() {
@@ -225,14 +219,16 @@ public class LoginFrame extends javax.swing.JFrame {
 
          if (rs.next()) {
              String type = rs.getString("user_type");
+             String email = rs.getString("email");
 
              JOptionPane.showMessageDialog(this, "Login successful!");
 
              if (type.equalsIgnoreCase("customer")) {
-                 openGuestsPage();  // <---- go to Guests
+                 openGuestsPage(email);
+             } else if (type.equalsIgnoreCase("staff")){
+                 openStaffPage();
              } else {
-                 JOptionPane.showMessageDialog(this,
-                         "User type not allowed: " + type);
+                 openAdminPage();
              }
 
              dispose(); // close login window
@@ -264,6 +260,16 @@ public class LoginFrame extends javax.swing.JFrame {
     showpassword.setEchoChar(defaultEchoChar);
 
     }      
+
+    private void openStaffPage() {
+        new HotelStaffBooking().setVisible(true);
+        dispose();
+    }
+
+    private void openAdminPage() {
+        new AdminUserManagement().setVisible(true);
+        dispose();
+    }
 
 
  }
